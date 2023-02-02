@@ -48,3 +48,22 @@ def execute_statement(cursor, statement, args=[]):
         print("DATA ERROR: ", e)
     except Exception as e:
         print("Unexpected error ", e)
+
+# Function to Run Statement
+def run_statement(statement : str, args=[]):
+    """
+    This function expects a valid SQL statement and an optional list of arguments. It connects to the DB, executes the statement, 
+    and closes the connection. 
+    If the connection to the DB fails, it returns None without running the statement
+
+    Args:
+        statement (str): A valid SQL query.
+        args (list, optional): The list of arguments. Defaults to [].
+    """
+    cursor = connect_db()
+    if (cursor == None):
+        print("Failed to connect to the DB, statement will not run.")
+        return None
+    result = execute_statement(cursor, statement, args)
+    disconnect_db(cursor)
+    return result
