@@ -1,3 +1,5 @@
+# This is all done with Mark in Class - its correct
+
 import mariadb
 import dbcreds
 
@@ -18,3 +20,16 @@ def connect_db():
         print("OPERATIONAL ERROR: ", e)
     except Exception as e:
         print("UNEXPECTED ERROR: ", e)
+
+# Function to Close Cursor/Connection
+def disconnect_db(cursor):
+    try:
+        conn = cursor.connection
+        cursor.close()
+        conn.close()
+    except mariadb.OperationalError as e:
+        print("OPERATIONAL ERROR: ", e)
+    except mariadb.InternalError as e:
+        print("INTERNAL ERROR: ", e)
+    except Exception as e:
+        print("UNEXPECTED ERROR:", e)
