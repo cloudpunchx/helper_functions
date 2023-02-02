@@ -33,3 +33,18 @@ def disconnect_db(cursor):
         print("INTERNAL ERROR: ", e)
     except Exception as e:
         print("UNEXPECTED ERROR:", e)
+
+# Function to Execute Statements, including with args
+def execute_statement(cursor, statement, args=[]):
+    try:
+        cursor.execute(statement, args)
+        results = cursor.fetchall()
+        return results
+    except mariadb.ProgrammingError as e:
+        print("Syntax error in your SQL statement: ", e)
+    except mariadb.IntegrityError as e:
+        print("The statement failed to execute due to integrity error, ", e)
+    except mariadb.DataError as e:
+        print("DATA ERROR: ", e)
+    except Exception as e:
+        print("Unexpected error ", e)
